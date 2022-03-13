@@ -1,16 +1,16 @@
 from selenium import webdriver
+import os
 
-GOOGLE_CHROME_PATH = '/app/.apt/usr/bin/google_chrome'
 CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
 
 url='https://countystat.shinyapps.io/rps_app/'
 
 op = webdriver.ChromeOptions()
+op.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
 op.add_argument("--headless")
 op.add_argument("--disable-dev-shm-usage")
 op.add_argument("--no-sandbox")
-op.binary_location = GOOGLE_CHROME_PATH
-driver = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH, chrome_options=op)
+driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=op)
 
 driver.get(url)
 download1 = driver.find_element_by_id('downloadData')
