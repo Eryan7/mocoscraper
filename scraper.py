@@ -1,5 +1,9 @@
 from selenium import webdriver
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support.expected_conditions import visibility_of_element_located
+from selenium.webdriver.common.by import By
 import os
+timeout=5
 
 CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
 
@@ -13,7 +17,9 @@ op.add_argument("--no-sandbox")
 driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=op)
 
 driver.get(url)
-download1 = driver.find_element_by_id('downloadData')
+id='downloadData'
+WebDriverWait(self.selenium, timeout).until(visibility_of_element_located((By.ID, id)))
+download1 = driver.find_element_by_id(id)
 download1.click()
 
 tab2 = driver.find_element_by_xpath("//*[text()='Maryland Police Accountability Act']");
