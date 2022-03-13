@@ -17,9 +17,8 @@ op.add_argument("--no-sandbox")
 driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=op)
 
 driver.get(url)
-id='downloadData'
-WebDriverWait(self.selenium, timeout).until(visibility_of_element_located((By.ID, id)))
-download1 = driver.find_element_by_id(id)
+WebDriverWait(driver, 10).until(visibility_of_element_located((By.ID, 'downloadData')))
+download1 = driver.find_element_by_id('downloadData')
 download1.click()
 
 tab2 = driver.find_element_by_xpath("//*[text()='Maryland Police Accountability Act']");
