@@ -17,7 +17,7 @@ op.add_argument("--no-sandbox")
 driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=op)
 
 driver.get(url)
-WebDriverWait(driver, 10).until(visibility_of_element_located((By.ID, 'downloadData')))
+WebDriverWait(driver, 60).until(visibility_of_element_located((By.ID, 'downloadData')))
 download1 = driver.find_element_by_id('downloadData')
 download1.click()
 
