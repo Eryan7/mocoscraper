@@ -1,4 +1,7 @@
 from selenium import webdriver
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support.expected_conditions import visibility_of_element_located
+from selenium.webdriver.common.by import By
 import os
 
 CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
@@ -16,6 +19,7 @@ op.add_argument(f'user-agent={user_agent}')
 driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=op)
 
 driver.get(url)
+WebDriverWait(driver, 60).until(visibility_of_element_located((By.ID, 'downloadData')))
 download1 = driver.find_element_by_id('downloadData')
 download1.click()
 
