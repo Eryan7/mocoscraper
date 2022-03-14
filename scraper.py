@@ -50,7 +50,7 @@ file2 = "data2-"+filedate+".csv"
 file3 = "data3-"+filedate+".csv"
 
 rpsTable = pd.read_csv(os.path.join(file_directory, file1))
-mpaaTable = pd.read_csv(os.path.join(file_directory, file2))
-auditTable = pd.read_csv(os.path.join(file_directory, file3))
+# mpaaTable = pd.read_csv(os.path.join(file_directory, file2))
+# auditTable = pd.read_csv(os.path.join(file_directory, file3))
 
 print(rpsTable)
