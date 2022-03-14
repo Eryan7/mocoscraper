@@ -19,8 +19,8 @@ op.add_argument("--no-sandbox")
 op.add_argument("--window-size=1920,1080")
 user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.50 Safari/537.36'
 op.add_argument(f'user-agent={user_agent}')
-p = {'download.default_directory': file_directory}
-op.add_experimental_option('prefs', p)
+# p = {'download.default_directory': file_directory}
+# op.add_experimental_option('prefs', p)
 driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=op)
 
 driver.get(url)
@@ -38,13 +38,13 @@ tab3.click()
 download3 = driver.find_element_by_id('downloadData3')
 download3.click()
 
-filedate = datetime.utcnow().strftime("%Y-%m-%d")
-file1 = "data-"+filedate+".csv"
-file2 = "data2-"+filedate+".csv"
-file3 = "data3-"+filedate+".csv"
+# filedate = datetime.utcnow().strftime("%Y-%m-%d")
+# file1 = "data-"+filedate+".csv"
+# file2 = "data2-"+filedate+".csv"
+# file3 = "data3-"+filedate+".csv"
 
-rpsTable = pd.read_csv(os.path.join(file_directory, file1))
-mpaaTable = pd.read_csv(os.path.join(file_directory, file2))
-auditTable = pd.read_csv(os.path.join(file_directory, file3))
+# rpsTable = pd.read_csv(os.path.join(file_directory, file1))
+# mpaaTable = pd.read_csv(os.path.join(file_directory, file2))
+# auditTable = pd.read_csv(os.path.join(file_directory, file3))
 
-print(rpsTable)
+# print(rpsTable)
