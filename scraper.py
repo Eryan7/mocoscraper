@@ -14,6 +14,9 @@ op.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
 op.add_argument("--headless")
 op.add_argument("--disable-dev-shm-usage")
 op.add_argument("--no-sandbox")
+op.add_argument("--window-size=1920,1080")
+user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.50 Safari/537.36'
+op.add_argument(f'user-agent={user_agent}')
 driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=op)
 
 driver.get(url)
