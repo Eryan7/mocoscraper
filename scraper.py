@@ -27,7 +27,7 @@ op.add_experimental_option("prefs", {
     "safebrowsing.enabled": False
     }
 )
-driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=op)
+driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), options=op)
 
 driver.get(url)
 WebDriverWait(driver, 60).until(visibility_of_element_located((By.ID, 'downloadData')))
