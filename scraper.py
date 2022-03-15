@@ -36,11 +36,13 @@ download1.click()
 
 tab2 = driver.find_element(By.XPATH, "//*[text()='Maryland Police Accountability Act']")
 tab2.click()
+WebDriverWait(driver, 60).until(visibility_of_element_located((By.ID, 'downloadData2')))
 download2 = driver.find_element(By.ID, 'downloadData2')
 download2.click()
 
 tab3 = driver.find_element(By.XPATH, "//*[text()='MCPD Audit']")
 tab3.click()
+WebDriverWait(driver, 60).until(visibility_of_element_located((By.ID, 'downloadData3')))
 download3 = driver.find_element(By.ID, 'downloadData3')
 download3.click()
 
@@ -49,21 +51,10 @@ file1 = "data-"+filedate+".csv"
 file2 = "data2-"+filedate+".csv"
 file3 = "data3-"+filedate+".csv"
 
-def find_file(file_name, directory_name):
-    files_found = []
-    for path, subdirs, files in os.walk(directory_name):
-        for name in files:
-            if(file_name == name):
-                file_path = os.path.join(path,name)
-                files_found.append(file_path)
-    return files_found
-
-print(find_file(file2, 'app'))
-
 rpsTable = pd.read_csv(os.path.join(file_directory, file1))
-# mpaaTable = pd.read_csv(os.path.join(file_directory, file2))
-# auditTable = pd.read_csv(os.path.join(file_directory, file3))
+mpaaTable = pd.read_csv(os.path.join(file_directory, file2))
+auditTable = pd.read_csv(os.path.join(file_directory, file3))
 
 print(rpsTable)
-# print(mpaaTable)
-# print(auditTable)
+print(mpaaTable)
+print(auditTable)
