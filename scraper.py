@@ -34,13 +34,13 @@ WebDriverWait(driver, 60).until(visibility_of_element_located((By.ID, 'downloadD
 download1 = driver.find_element(By.ID, 'downloadData')
 download1.click()
 
-tab2 = driver.find_element(By.XPATH, "//*[text()='Maryland Police Accountability Act']")
+tab2 = WebDriverWait(driver, 60).until(lambda x: x.find_element(By.ID, By.XPATH, "//*[text()=''Maryland Police Accountability Act'']"))
 tab2.click()
 WebDriverWait(driver, 60).until(visibility_of_element_located((By.ID, 'downloadData2')))
 download2 = driver.find_element(By.ID, 'downloadData2')
 download2.click()
 
-tab3 = driver.find_element(By.XPATH, "//*[text()='MCPD Audit']")
+tab3 = WebDriverWait(driver, 60).until(lambda x: x.find_element(By.ID, By.XPATH, "//*[text()='MCPD Audit']"))
 tab3.click()
 WebDriverWait(driver, 60).until(visibility_of_element_located((By.ID, 'downloadData3')))
 download3 = driver.find_element(By.ID, 'downloadData3')
