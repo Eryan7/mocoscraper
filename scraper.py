@@ -6,7 +6,7 @@ import os
 from datetime import datetime
 import pandas as pd
 import numpy as np
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String
 
 CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
 DATABASE_URL = os.environ['DATABASE_URL']
@@ -71,5 +71,20 @@ print(mpaaTable)
 print(auditTable)
 
 engine = create_engine(DATABASE_URL, echo = False)
+meta = MetaData()
+
+tf_recs = Table(
+   'tf_recs', meta, 
+   Column('id', Integer, primary_key = True), 
+   Column('recommendation', String), 
+   Column('action', String),
+   Column('parties', String),
+   Column('progress', String),
+   Column('timeline', String),
+   Column('priority', String),
+   Column('comments', String),
+)
+meta.create_all(engine)
+
 rpsTable.to_sql('tf_recs', con = engine, if_exists='append')
 print(engine.execute('SELECT * FROM tf_recs').fetchone())
