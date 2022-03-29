@@ -6,7 +6,7 @@ import os
 from datetime import datetime
 import pandas as pd
 import numpy as np
-from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String
+from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String, Date
 
 CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
 DATABASE_URL = os.environ['DATABASE_URL']
@@ -62,13 +62,13 @@ mpaaTable = pd.read_csv(os.path.join(file_directory, file2))
 mpaaTable.drop(mpaaTable.columns[[0]], axis=1, inplace=True)
 mpaaTable['SSJC Comments'] = np.NaN
 
-auditTable = pd.read_csv(os.path.join(file_directory, file3))
-auditTable.drop(auditTable.columns[[0]], axis=1, inplace=True)
-auditTable['SSJC Comments'] = np.NaN
+# auditTable = pd.read_csv(os.path.join(file_directory, file3))
+# auditTable.drop(auditTable.columns[[0]], axis=1, inplace=True)
+# auditTable['SSJC Comments'] = np.NaN
 
 print(rpsTable)
 print(mpaaTable)
-print(auditTable)
+# print(auditTable)
 
 engine = create_engine(DATABASE_URL, echo = False)
 meta = MetaData()
@@ -80,7 +80,7 @@ tf_recs = Table(
    Column('action', String),
    Column('parties', String),
    Column('progress', String),
-   Column('timeline', String),
+   Column('timeline', Date),
    Column('priority', String),
    Column('comments', String),
 )
