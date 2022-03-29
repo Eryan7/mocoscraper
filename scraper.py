@@ -33,20 +33,17 @@ op.add_experimental_option("prefs", {
 driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), options=op)
 
 driver.get(url)
-WebDriverWait(driver, 60).until(visibility_of_element_located((By.ID, 'downloadData')))
-download1 = driver.find_element(By.ID, 'downloadData')
+download1 = WebDriverWait(driver, 60).until(lambda x: x.find_element(By.ID, 'downloadData'))
 download1.click()
 
 tab2 = WebDriverWait(driver, 60).until(lambda x: x.find_element(By.XPATH, "//*[text()='Maryland Police Accountability Act']"))
 tab2.click()
-WebDriverWait(driver, 60).until(visibility_of_element_located((By.ID, 'downloadData2')))
-download2 = driver.find_element(By.ID, 'downloadData2')
+download2 = WebDriverWait(driver, 60).until(lambda x: x.find_element(By.ID, 'downloadData2'))
 download2.click()
 
 tab3 = WebDriverWait(driver, 60).until(lambda x: x.find_element(By.XPATH, "//*[text()='MCPD Audit']"))
 tab3.click()
-WebDriverWait(driver, 60).until(visibility_of_element_located((By.ID, 'downloadData3')))
-download3 = driver.find_element(By.ID, 'downloadData3')
+download3 = WebDriverWait(driver, 60).until(lambda x: x.find_element(By.ID, 'downloadData3'))
 download3.click()
 
 filedate = datetime.utcnow().strftime("%Y-%m-%d")
@@ -62,13 +59,13 @@ mpaaTable = pd.read_csv(os.path.join(file_directory, file2))
 mpaaTable.drop(mpaaTable.columns[[0]], axis=1, inplace=True)
 mpaaTable['SSJC Comments'] = np.NaN
 
-# auditTable = pd.read_csv(os.path.join(file_directory, file3))
-# auditTable.drop(auditTable.columns[[0]], axis=1, inplace=True)
-# auditTable['SSJC Comments'] = np.NaN
+auditTable = pd.read_csv(os.path.join(file_directory, file3))
+auditTable.drop(auditTable.columns[[0]], axis=1, inplace=True)
+auditTable['SSJC Comments'] = np.NaN
 
 print(rpsTable)
 print(mpaaTable)
-# print(auditTable)
+print(auditTable)
 
 engine = create_engine(DATABASE_URL, echo = False)
 meta = MetaData()
