@@ -63,8 +63,8 @@ rpsTable['SSJC Comments'] = np.NaN
 # auditTable['SSJC Comments'] = np.NaN
 
 print(rpsTable)
-print(mpaaTable)
-print(auditTable)
+# print(mpaaTable)
+# print(auditTable)
 
 engine = create_engine(DATABASE_URL, echo = False)
 meta = MetaData()
