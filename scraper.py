@@ -1,6 +1,5 @@
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support.expected_conditions import visibility_of_element_located
 from selenium.webdriver.common.by import By
 import os
 from datetime import datetime
@@ -55,13 +54,13 @@ rpsTable = pd.read_csv(os.path.join(file_directory, file1))
 rpsTable.drop(rpsTable.columns[[0]], axis=1, inplace=True)
 rpsTable['SSJC Comments'] = np.NaN
 
-mpaaTable = pd.read_csv(os.path.join(file_directory, file2))
-mpaaTable.drop(mpaaTable.columns[[0]], axis=1, inplace=True)
-mpaaTable['SSJC Comments'] = np.NaN
+# mpaaTable = pd.read_csv(os.path.join(file_directory, file2))
+# mpaaTable.drop(mpaaTable.columns[[0]], axis=1, inplace=True)
+# mpaaTable['SSJC Comments'] = np.NaN
 
-auditTable = pd.read_csv(os.path.join(file_directory, file3))
-auditTable.drop(auditTable.columns[[0]], axis=1, inplace=True)
-auditTable['SSJC Comments'] = np.NaN
+# auditTable = pd.read_csv(os.path.join(file_directory, file3))
+# auditTable.drop(auditTable.columns[[0]], axis=1, inplace=True)
+# auditTable['SSJC Comments'] = np.NaN
 
 print(rpsTable)
 print(mpaaTable)
