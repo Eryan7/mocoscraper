@@ -2,4 +2,4 @@ selenium
 datetime
 pandas
 numpy
-sqlalchemy
+psycopg2
