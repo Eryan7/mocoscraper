@@ -35,12 +35,12 @@ driver.get(url)
 download1 = WebDriverWait(driver, 60).until(lambda x: x.find_element(By.ID, 'downloadData'))
 download1.click()
 
-tab2 = WebDriverWait(driver, 60).until(lambda x: x.find_element(By.XPATH, "//*[text()='Maryland Police Accountability Act']"))
+tab2 = driver.find_element(By.XPATH, "//*[text()='Maryland Police Accountability Act']")
 tab2.click()
 download2 = WebDriverWait(driver, 60).until(lambda x: x.find_element(By.ID, 'downloadData2'))
 download2.click()
 
-tab3 = WebDriverWait(driver, 60).until(lambda x: x.find_element(By.XPATH, "//*[text()='MCPD Audit']"))
+tab3 = driver.find_element(By.XPATH, "//*[text()='MCPD Audit']")
 tab3.click()
 download3 = WebDriverWait(driver, 60).until(lambda x: x.find_element(By.ID, 'downloadData3'))
 download3.click()
@@ -54,17 +54,17 @@ rpsTable = pd.read_csv(os.path.join(file_directory, file1))
 rpsTable.drop(rpsTable.columns[[0]], axis=1, inplace=True)
 rpsTable['SSJC Comments'] = np.NaN
 
-# mpaaTable = pd.read_csv(os.path.join(file_directory, file2))
-# mpaaTable.drop(mpaaTable.columns[[0]], axis=1, inplace=True)
-# mpaaTable['SSJC Comments'] = np.NaN
+mpaaTable = pd.read_csv(os.path.join(file_directory, file2))
+mpaaTable.drop(mpaaTable.columns[[0]], axis=1, inplace=True)
+mpaaTable['SSJC Comments'] = np.NaN
 
-# auditTable = pd.read_csv(os.path.join(file_directory, file3))
-# auditTable.drop(auditTable.columns[[0]], axis=1, inplace=True)
-# auditTable['SSJC Comments'] = np.NaN
+auditTable = pd.read_csv(os.path.join(file_directory, file3))
+auditTable.drop(auditTable.columns[[0]], axis=1, inplace=True)
+auditTable['SSJC Comments'] = np.NaN
 
 print(rpsTable)
-# print(mpaaTable)
-# print(auditTable)
+print(mpaaTable)
+print(auditTable)
 
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 cur = conn.cursor()
