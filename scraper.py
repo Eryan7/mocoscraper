@@ -54,17 +54,17 @@ rpsTable = pd.read_csv(os.path.join(file_directory, file1))
 rpsTable.drop(rpsTable.columns[[0]], axis=1, inplace=True)
 rpsTable['SSJC Comments'] = np.NaN
 
-mpaaTable = pd.read_csv(os.path.join(file_directory, file2))
-mpaaTable.drop(mpaaTable.columns[[0]], axis=1, inplace=True)
-mpaaTable['SSJC Comments'] = np.NaN
+# mpaaTable = pd.read_csv(os.path.join(file_directory, file2))
+# mpaaTable.drop(mpaaTable.columns[[0]], axis=1, inplace=True)
+# mpaaTable['SSJC Comments'] = np.NaN
 
-auditTable = pd.read_csv(os.path.join(file_directory, file3))
-auditTable.drop(auditTable.columns[[0]], axis=1, inplace=True)
-auditTable['SSJC Comments'] = np.NaN
+# auditTable = pd.read_csv(os.path.join(file_directory, file3))
+# auditTable.drop(auditTable.columns[[0]], axis=1, inplace=True)
+# auditTable['SSJC Comments'] = np.NaN
 
 print(rpsTable)
-print(mpaaTable)
-print(auditTable)
+# print(mpaaTable)
+# print(auditTable)
 
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 cur = conn.cursor()
