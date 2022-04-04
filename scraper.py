@@ -8,7 +8,7 @@ import numpy as np
 import psycopg2
 
 CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
-DATABASE_URL = os.environ['postgres://matfkzvriwtxwq:1f48345cce737bc844a1bff3a20eed37b702c2007d9dfe8ff31754bf492350aa@ec2-18-215-96-22.compute-1.amazonaws.com:5432/df9mm40h6hpb3h']
+DATABASE_URL = os.environ['DATABASE_URL']
 
 url = 'https://countystat.shinyapps.io/rps_app/'
 file_directory = os.path.abspath('files')
