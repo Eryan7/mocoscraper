@@ -8,7 +8,7 @@ import numpy as np
 import psycopg2
 
 CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
-DATABASE_URL = os.environ['DATABASE_URL']
+DATABASE_URL = os.environ['postgres://matfkzvriwtxwq:1f48345cce737bc844a1bff3a20eed37b702c2007d9dfe8ff31754bf492350aa@ec2-18-215-96-22.compute-1.amazonaws.com:5432/df9mm40h6hpb3h']
 
 url = 'https://countystat.shinyapps.io/rps_app/'
 file_directory = os.path.abspath('files')
@@ -69,6 +69,10 @@ print(rpsTable)
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 cur = conn.cursor()
 cur.execute("CREATE TABLE IF NOT EXISTS tf_recs (action_id serial PRIMARY KEY, focus_area text, tf_rec text, action text, parties text, progress text, timeline date, priority text, ssjc_comments text);")
+with open(file1, 'r') as f:
+    # Notice that we don't need the `csv` module.
+    next(f) # Skip the header row.
+    cur.copy_from(f, 'tf_recs', sep=',')
 conn.commit()
 conn.close()
 cur.close()
