@@ -69,10 +69,12 @@ print(rpsTable)
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 cur = conn.cursor()
 cur.execute("CREATE TABLE IF NOT EXISTS tf_recs (action_id serial PRIMARY KEY, focus_area text, tf_rec text, action text, parties text, progress text, timeline date, priority text, ssjc_comments text);")
-with open(file1, 'r') as f:
-    # Notice that we don't need the `csv` module.
-    next(f) # Skip the header row.
-    cur.copy_from(f, 'tf_recs', sep=',')
+for i in rpsTable.index:
+    query = """
+    INSERT into tf_recs(action_id, focus_area, tf_rec, action, parties, progress, timeline, priority) values(%s,%s,%s,%s,%s,%s,%s,%s);
+    """ % (rpsTable['Action #'], rpsTable['Focus Area'], rpsTable['RPSTF Recommendation'], rpsTable['Action'], rpsTable['Parties Responsible'],
+    rpsTable['Progress'], rpsTable['Anticipated Timeline'], rpsTable['Priority Level'])
+    single_insert(conn, query)
 conn.commit()
 conn.close()
 cur.close()
