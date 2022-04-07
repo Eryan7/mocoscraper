@@ -6,7 +6,7 @@ from datetime import datetime
 import pandas as pd
 import numpy as np
 import psycopg2
-from sqlalchemy import create_engine
+import psycopg2.extras as extras
 
 CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
 DATABASE_URL = os.environ['DATABASE_URL']
@@ -67,11 +67,28 @@ print(rpsTable)
 # print(mpaaTable)
 # print(auditTable)
 
-db = create_engine(DATABASE_URL)
-conn = db.connect()
-rpsTable.to_sql('tf_recs', con=conn, if_exists='replace', index=False)
+def execute_values(conn, df, table):
+  
+    tuples = [tuple(x) for x in df.to_numpy()]
+  
+    cols = ','.join(list(df.columns))
+    # SQL query to execute
+    query = "INSERT INTO %s(%s) VALUES %%s" % (table, cols)
+    cursor = conn.cursor()
+    try:
+        extras.execute_values(cursor, query, tuples)
+        conn.commit()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print("Error: %s" % error)
+        conn.rollback()
+        cursor.close()
+        return 1
+    #print("the dataframe is inserted")
+    cursor.close()
+
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+execute_values(conn, rpsTable, 'tf_recs')
 #cur = conn.cursor()
-conn.commit()
-conn.close()
+#conn.commit()
+#conn.close()
 #cur.close()
