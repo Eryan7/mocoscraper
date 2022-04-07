@@ -90,4 +90,4 @@ for i in rpsTable.index:
     single_insert(conn, query)
 #conn.commit()
 conn.close()
-#cur.close()
+cur.close()
