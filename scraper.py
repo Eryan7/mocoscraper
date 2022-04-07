@@ -87,8 +87,9 @@ def execute_values(conn, df, table):
     cursor.close()
 
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+cur = conn.cursor()
+cur.execute("CREATE TABLE IF NOT EXISTS tf_recs (action_id serial PRIMARY KEY, focus_area text, tf_rec text, action text, parties text, progress text, timeline date, priority text, ssjc_comments text);")
+cur.close()
 execute_values(conn, rpsTable, 'tf_recs')
-#cur = conn.cursor()
 #conn.commit()
-#conn.close()
-#cur.close()
+conn.close()
