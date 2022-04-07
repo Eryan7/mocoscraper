@@ -63,6 +63,7 @@ rpsTable['SSJC Comments'] = np.NaN
 # auditTable.drop(auditTable.columns[[0]], axis=1, inplace=True)
 # auditTable['SSJC Comments'] = np.NaN
 
+rpsTable.columns = ['action_id', 'focus_area', 'tf_rec', 'action', 'parties', 'progress', 'timeline', 'priority', 'ssjc_comments']
 print(rpsTable)
 # print(mpaaTable)
 # print(auditTable)
