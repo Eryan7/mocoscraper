@@ -80,7 +80,7 @@ def single_insert(conn, insert_req):
     cursor.close()
 
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-#cur = conn.cursor()
+cur = conn.cursor()
 cur.execute("CREATE TABLE IF NOT EXISTS tf_recs (action_id serial PRIMARY KEY, focus_area text, tf_rec text, action text, parties text, progress text, timeline date, priority text, ssjc_comments text);")
 #rpsTable.to_sql('tf_recs', if_exists='replace', con=conn, index=False)
 for i in dataframe.index:
@@ -89,5 +89,5 @@ for i in dataframe.index:
     """ % (rpsTable['Action #'], rpsTable['Focus Area'], rpsTable['RPSTF Recommendation'], rpsTable['Action'], rpsTable['Parties Responsible'], rpsTable['Progress'], rpsTable['Anticipated Timeline'], rpsTable['Priority Level'])
     single_insert(conn, query)
 #conn.commit()
-#conn.close()
+conn.close()
 #cur.close()
