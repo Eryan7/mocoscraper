@@ -83,7 +83,7 @@ conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 cur = conn.cursor()
 cur.execute("CREATE TABLE IF NOT EXISTS tf_recs (action_id serial PRIMARY KEY, focus_area text, tf_rec text, action text, parties text, progress text, timeline date, priority text, ssjc_comments text);")
 #rpsTable.to_sql('tf_recs', if_exists='replace', con=conn, index=False)
-for i in dataframe.index:
+for i in rpsTable.index:
     query = """
     INSERT into tf_recs(action_id, focus_area, tf_rec, action, parties, progress, timeline, priority) values('%s',%s,%s);
     """ % (rpsTable['Action #'], rpsTable['Focus Area'], rpsTable['RPSTF Recommendation'], rpsTable['Action'], rpsTable['Parties Responsible'], rpsTable['Progress'], rpsTable['Anticipated Timeline'], rpsTable['Priority Level'])
