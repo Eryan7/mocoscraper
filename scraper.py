@@ -85,7 +85,7 @@ cur.close()
 #rpsTable.to_sql('tf_recs', if_exists='replace', con=conn, index=False)
 for i in rpsTable.index:
     query = """
-    INSERT INTO tf_recs(action_id, focus_area, tf_rec, action, parties, progress, timeline, priority) VALUES(%s, %s, %s, %s, %s, %s, %s, %s);
+    INSERT INTO tf_recs(action_id, focus_area, tf_rec, action, parties, progress, timeline, priority) VALUES('%s', %s, %s, %s, %s, %s, %s, %s);
     """ % (rpsTable['Action #'], rpsTable['Focus Area'], rpsTable['RPSTF Recommendation'], rpsTable['Action'], rpsTable['Parties Responsible'], rpsTable['Progress'], rpsTable['Anticipated Timeline'], rpsTable['Priority Level'])
     single_insert(conn, query)
 
