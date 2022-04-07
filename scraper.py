@@ -66,29 +66,29 @@ print(rpsTable)
 # print(mpaaTable)
 # print(auditTable)
 
-#def single_insert(conn, insert_req):
-   # """ Execute a single INSERT request """
-    #cursor = conn.cursor()
-   # try:
-      #  cursor.execute(insert_req)
-       # conn.commit()
-    #except (Exception, psycopg2.DatabaseError) as error:
-       # print("Error: %s" % error)
-       # conn.rollback()
-       # return 1
-    #cursor.close()
+def single_insert(conn, insert_req):
+    """ Execute a single INSERT request """
+    cursor = conn.cursor()
+    try:
+        cursor.execute(insert_req)
+        conn.commit()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print("Error: %s" % error)
+        conn.rollback()
+        return 1
+    cursor.close()
 
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 cur = conn.cursor()
 cur.execute("CREATE TABLE IF NOT EXISTS tf_recs (action_id serial PRIMARY KEY, focus_area text, tf_rec text, action text, parties text, progress text, timeline date, priority text, ssjc_comments text);")
+cur.close()
 #rpsTable.to_sql('tf_recs', if_exists='replace', con=conn, index=False)
 for i in rpsTable.index:
-    query = "INSERT INTO tf_recs(action_id, focus_area, tf_rec, action, parties, progress, timeline, priority) values(%s, %s, %s, %s, %s, %s, %s, %s);"
-    data = (rpsTable['Action #'], rpsTable['Focus Area'], rpsTable['RPSTF Recommendation'], rpsTable['Action'], rpsTable['Parties Responsible'], rpsTable['Progress'], rpsTable['Anticipated Timeline'], rpsTable['Priority Level'])
-    cur.execute(query, data)
-    #INSERT into tf_recs(action_id, focus_area, tf_rec, action, parties, progress, timeline, priority) values('%s',%s,%s);
-    #""" % (rpsTable['Action #'], rpsTable['Focus Area'], rpsTable['RPSTF Recommendation'], rpsTable['Action'], rpsTable['Parties Responsible'], rpsTable['Progress'], rpsTable['Anticipated Timeline'], rpsTable['Priority Level'])
-    #single_insert(conn, query)
-conn.commit()
+    query = """
+    INSERT INTO tf_recs(action_id, focus_area, tf_rec, action, parties, progress, timeline, priority) VALUES(%s, %s, %s, %s, %s, %s, %s, %s);
+    """ % (rpsTable['Action #'], rpsTable['Focus Area'], rpsTable['RPSTF Recommendation'], rpsTable['Action'], rpsTable['Parties Responsible'], rpsTable['Progress'], rpsTable['Anticipated Timeline'], rpsTable['Priority Level'])
+    single_insert(conn, query)
+
+#conn.commit()
 conn.close()
-cur.close()
+#cur.close()
