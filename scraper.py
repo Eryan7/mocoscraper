@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 import os
 from datetime import datetime
 import pandas as pd
@@ -36,14 +37,14 @@ driver.get(url)
 download1 = WebDriverWait(driver, 60).until(lambda x: x.find_element(By.ID, 'downloadData'))
 download1.click()
 
-tab2 = driver.find_element(By.XPATH, "//h4[text()='Maryland Police Accountability Act']")
+tab2 = WebDriverWait(driver, 60).until(EC.element_to_be_clickable((By.XPATH, "//h4[text()='Maryland Police Accountability Act']")))
 tab2.click()
-download2 = WebDriverWait(driver, 60).until(lambda x: x.find_element(By.ID, 'downloadData2'))
+download2 = WebDriverWait(driver, 60).until(EC.element_to_be_clickable((By.ID, 'downloadData2')))
 download2.click()
 
-tab3 = driver.find_element(By.XPATH, "//h4[text()='MCPD Audit']")
+tab3 = WebDriverWait(driver, 60).until(EC.element_to_be_clickable((By.XPATH, "//h4[text()='MCPD Audit']")))
 tab3.click()
-download3 = WebDriverWait(driver, 60).until(lambda x: x.find_element(By.ID, 'downloadData3'))
+download3 = WebDriverWait(driver, 60).until(EC.element_to_be_clickable((By.ID, 'downloadData3')))
 download3.click()
 
 filedate = datetime.utcnow().strftime("%Y-%m-%d")
@@ -55,18 +56,18 @@ rpsTable = pd.read_csv(os.path.join(file_directory, file1))
 rpsTable.drop(rpsTable.columns[[0]], axis=1, inplace=True)
 rpsTable['SSJC Comments'] = np.NaN
 
-# mpaaTable = pd.read_csv(os.path.join(file_directory, file2))
-# mpaaTable.drop(mpaaTable.columns[[0]], axis=1, inplace=True)
-# mpaaTable['SSJC Comments'] = np.NaN
+mpaaTable = pd.read_csv(os.path.join(file_directory, file2))
+mpaaTable.drop(mpaaTable.columns[[0]], axis=1, inplace=True)
+mpaaTable['SSJC Comments'] = np.NaN
 
-# auditTable = pd.read_csv(os.path.join(file_directory, file3))
-# auditTable.drop(auditTable.columns[[0]], axis=1, inplace=True)
-# auditTable['SSJC Comments'] = np.NaN
+auditTable = pd.read_csv(os.path.join(file_directory, file3))
+auditTable.drop(auditTable.columns[[0]], axis=1, inplace=True)
+auditTable['SSJC Comments'] = np.NaN
 
 rpsTable.columns = ['action_id', 'focus_area', 'tf_rec', 'action', 'parties', 'progress', 'timeline', 'priority', 'ssjc_comments']
 print(rpsTable)
-# print(mpaaTable)
-# print(auditTable)
+print(mpaaTable)
+print(auditTable)
 
 def execute_values(conn, df, table):
   
@@ -84,13 +85,12 @@ def execute_values(conn, df, table):
         conn.rollback()
         cursor.close()
         return 1
-    #print("the dataframe is inserted")
     cursor.close()
 
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 cur = conn.cursor()
 cur.execute("CREATE TABLE IF NOT EXISTS tf_recs (action_id serial PRIMARY KEY, focus_area text, tf_rec text, action text, parties text, progress text, timeline date, priority text, ssjc_comments text);")
 cur.close()
-execute_values(conn, rpsTable, 'tf_recs')
-#conn.commit()
+# execute_values(conn, rpsTable, 'tf_recs')
+conn.commit()
 conn.close()
