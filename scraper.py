@@ -35,17 +35,25 @@ driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), o
 
 driver.get(url)
 download1 = WebDriverWait(driver, 60).until(lambda x: x.find_element(By.ID, 'downloadData'))
+url1 = download1.get_attribute('href')
+url_split = url1.split('/')
+print(url_split)
+session_id = url_split[6]
 download1.click()
 
-tab2 = WebDriverWait(driver, 60).until(EC.element_to_be_clickable((By.XPATH, "//h4[text()='Maryland Police Accountability Act']")))
+tab2 = driver.find_element(By.XPATH, "//h4[text()='Maryland Police Accountability Act']")
 tab2.click()
-download2 = WebDriverWait(driver, 60).until(EC.element_to_be_clickable((By.ID, 'downloadData2')))
-download2.click()
+driver.get("https://countystat.shinyapps.io/rps_app/_w_9201090d/session/"+session_id+"/download/downloadData2?w=9201090d")
 
-tab3 = WebDriverWait(driver, 60).until(EC.element_to_be_clickable((By.XPATH, "//h4[text()='MCPD Audit']")))
+driver.get(url)
+download1 = WebDriverWait(driver, 60).until(lambda x: x.find_element(By.ID, 'downloadData'))
+url1 = download1.get_attribute('href')
+url_split = url1.split('/')
+print(url_split)
+session_id = url_split[6]
+tab3 = driver.find_element(By.XPATH, "//h4[text()='MCPD Audit']")
 tab3.click()
-download3 = WebDriverWait(driver, 60).until(EC.element_to_be_clickable((By.ID, 'downloadData3')))
-download3.click()
+driver.get("https://countystat.shinyapps.io/rps_app/_w_9201090d/session/"+session_id+"/download/downloadData3?w=9201090d")
 
 filedate = datetime.utcnow().strftime("%Y-%m-%d")
 file1 = "data-"+filedate+".csv"
