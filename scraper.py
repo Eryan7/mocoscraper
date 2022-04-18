@@ -36,43 +36,15 @@ driver.get(url)
 download1 = WebDriverWait(driver, 60).until(lambda x: x.find_element(By.ID, 'downloadData'))
 download1.click()
 
-# tab2 = driver.find_element(By.XPATH, "//h4[()='Maryland Police Accountability Act']")
-# tab2 = driver.find_element(tab2.parent)
-# tab2.click()
-# download2 = WebDriverWait(driver, 60).until(lambda x: x.find_element(By.ID, 'downloadData2'))
-# url2 = download2.get_attribute('href')
-# print(url2)
-# driver.get(str(url2))
-
-# driver.get(url)
-# tab3 = driver.find_element(By.XPATH, "//h4[text()='MCPD Audit']")
-# tab3.click()
-# download3 = WebDriverWait(driver, 60).until(lambda x: x.find_element(By.ID, 'downloadData3'))
-# url3 = download3.get_attribute('href')
-# print(url3)
-# driver.get(str(url3))
-
 filedate = datetime.utcnow().strftime("%Y-%m-%d")
-file1 = "data-"+filedate+".csv"
-file2 = "data2-"+filedate+".csv"
-file3 = "data3-"+filedate+".csv"
+filename = "data-"+filedate+".csv"
 
-rpsTable = pd.read_csv(os.path.join(file_directory, file1))
+rpsTable = pd.read_csv(os.path.join(file_directory, filename))
 rpsTable.drop(rpsTable.columns[[0]], axis=1, inplace=True)
 rpsTable['SSJC Comments'] = np.NaN
 
-# mpaaTable = pd.read_csv(os.path.join(file_directory, file2))
-# mpaaTable.drop(mpaaTable.columns[[0]], axis=1, inplace=True)
-# mpaaTable['SSJC Comments'] = np.NaN
-
-# auditTable = pd.read_csv(os.path.join(file_directory, file3))
-# auditTable.drop(auditTable.columns[[0]], axis=1, inplace=True)
-# auditTable['SSJC Comments'] = np.NaN
-
 rpsTable.columns = ['action_id', 'focus_area', 'tf_rec', 'action', 'parties', 'progress', 'timeline', 'priority', 'ssjc_comments']
 print(rpsTable)
-# print(mpaaTable)
-# print(auditTable)
 
 def execute_values(conn, df, table):
   
