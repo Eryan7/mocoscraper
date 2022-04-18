@@ -1,7 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
 import os
 from datetime import datetime
 import pandas as pd
@@ -36,24 +35,20 @@ driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), o
 driver.get(url)
 download1 = WebDriverWait(driver, 60).until(lambda x: x.find_element(By.ID, 'downloadData'))
 url1 = download1.get_attribute('href')
-url_split = url1.split('/')
-print(url_split)
-session_id = url_split[6]
 download1.click()
 
 tab2 = driver.find_element(By.XPATH, "//h4[text()='Maryland Police Accountability Act']")
 tab2.click()
-driver.get("https://countystat.shinyapps.io/rps_app/_w_9201090d/session/"+session_id+"/download/downloadData2?w=9201090d")
+download2 = WebDriverWait(driver, 60).until(lambda x: x.find_element(By.ID, 'downloadData2'))
+url2 = download2.get_attribute('href')
+driver.get(str(url2))
 
 driver.get(url)
-download1 = WebDriverWait(driver, 60).until(lambda x: x.find_element(By.ID, 'downloadData'))
-url1 = download1.get_attribute('href')
-url_split = url1.split('/')
-print(url_split)
-session_id = url_split[6]
 tab3 = driver.find_element(By.XPATH, "//h4[text()='MCPD Audit']")
 tab3.click()
-driver.get("https://countystat.shinyapps.io/rps_app/_w_9201090d/session/"+session_id+"/download/downloadData3?w=9201090d")
+download3 = WebDriverWait(driver, 60).until(lambda x: x.find_element(By.ID, 'downloadData3'))
+url3 = download3.get_attribute('href')
+driver.get(str(url3))
 
 filedate = datetime.utcnow().strftime("%Y-%m-%d")
 file1 = "data-"+filedate+".csv"
