@@ -42,7 +42,7 @@ tab2.click()
 download2 = WebDriverWait(driver, 60).until(lambda x: x.find_element(By.ID, 'downloadData2'))
 url2 = download2.get_attribute('href')
 print(url2)
-driver.get(url2)
+driver.get(str(url2))
 
 driver.get(url)
 tab3 = driver.find_element(By.XPATH, "//h4[text()='MCPD Audit']")
@@ -50,7 +50,7 @@ tab3.click()
 download3 = WebDriverWait(driver, 60).until(lambda x: x.find_element(By.ID, 'downloadData3'))
 url3 = download3.get_attribute('href')
 print(url3)
-driver.get(url3)
+driver.get(str(url3))
 
 filedate = datetime.utcnow().strftime("%Y-%m-%d")
 file1 = "data-"+filedate+".csv"
