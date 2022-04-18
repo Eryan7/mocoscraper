@@ -35,7 +35,6 @@ driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), o
 driver.get(url)
 download1 = WebDriverWait(driver, 60).until(lambda x: x.find_element(By.ID, 'downloadData'))
 download1.click()
-
 filedate = datetime.utcnow().strftime("%Y-%m-%d")
 filename = "data-"+filedate+".csv"
 
