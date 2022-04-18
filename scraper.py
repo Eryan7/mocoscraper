@@ -34,7 +34,6 @@ driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), o
 
 driver.get(url)
 download1 = WebDriverWait(driver, 60).until(lambda x: x.find_element(By.ID, 'downloadData'))
-url1 = download1.get_attribute('href')
 download1.click()
 
 # tab2 = driver.find_element(By.XPATH, "//h4[()='Maryland Police Accountability Act']")
